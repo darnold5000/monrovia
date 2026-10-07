@@ -33,6 +33,28 @@ export default function SchedulePage() {
             <ExternalLinkButton href={monroviaExternal.calendar} className="mt-4" variant="secondary">
               View calendar on monroviaball.com
             </ExternalLinkButton>
+            <ul className="mt-5 space-y-2 text-sm">
+              <li>
+                <a className="font-semibold text-mobs-green hover:underline" href={monroviaExternal.googleCalendarHelp} target="_blank" rel="noopener noreferrer">
+                  Google Calendar instructions
+                </a>
+              </li>
+              <li>
+                <a className="font-semibold text-mobs-green hover:underline" href={monroviaExternal.iCalendarHelp} target="_blank" rel="noopener noreferrer">
+                  iCalendar instructions
+                </a>
+              </li>
+              <li>
+                <a className="font-semibold text-mobs-green hover:underline" href={monroviaExternal.outlookCalendarHelp} target="_blank" rel="noopener noreferrer">
+                  Microsoft Outlook instructions
+                </a>
+              </li>
+              <li>
+                <a className="font-semibold text-mobs-green hover:underline" href={monroviaExternal.outlookComCalendarHelp} target="_blank" rel="noopener noreferrer">
+                  Outlook.com instructions
+                </a>
+              </li>
+            </ul>
           </div>
           <div className="rounded-xl border border-barn-border bg-barn-white p-6">
             <h2 className="font-display text-lg font-bold text-charcoal uppercase">Locations</h2>

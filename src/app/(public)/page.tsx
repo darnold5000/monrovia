@@ -183,43 +183,42 @@ export default function HomePage() {
 
       <section className="section-pad bg-barn-cream">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <p className="eyebrow text-mobs-green">Stay in the loop</p>
+          <p className="eyebrow text-mobs-green">From the current league site</p>
           <h2 className="mt-2 font-display text-3xl font-black text-charcoal uppercase sm:text-4xl">
-            Important dates
+            League updates
           </h2>
+          <p className="mt-3 max-w-2xl text-sm text-barn-muted">
+            These are the updates published on monroviaball.com. They are from 2025 and are not upcoming events.
+          </p>
           {upcoming.length > 0 ? (
             <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {upcoming.map((item) => (
-                <li key={item.id} className="rounded-lg border border-barn-border bg-barn-white p-5">
-                  <p className="text-xs font-bold tracking-wide text-mobs-green uppercase">{item.date}</p>
+                <li key={item.id} className="rounded-lg border border-mobs-green/30 bg-barn-white p-5">
+                  <p className="text-xs font-bold tracking-wide text-mobs-green uppercase">Upcoming · {item.date}</p>
                   <h3 className="mt-2 font-display text-lg font-bold text-charcoal">{item.title}</h3>
                   <p className="mt-2 text-sm text-barn-muted">{item.body}</p>
                 </li>
               ))}
             </ul>
-          ) : (
-            <p className="mt-6 max-w-2xl text-barn-muted">
-              New league dates and events will be posted here as they are announced. See the{" "}
-              <Link href="/schedule" className="font-semibold text-mobs-green hover:underline">
-                schedule page
-              </Link>{" "}
-              for the official calendar.
-            </p>
-          )}
-          {archive.length > 0 ? (
-            <details className="mt-8 rounded-lg border border-barn-border bg-barn-white p-5">
-              <summary className="cursor-pointer font-display text-sm font-bold tracking-wide text-charcoal uppercase">
-                Past updates (archive)
-              </summary>
-              <ul className="mt-4 space-y-3 border-t border-barn-border pt-4">
-                {archive.map((item) => (
-                  <li key={item.id} className="text-sm text-barn-muted">
-                    <span className="font-semibold text-charcoal">{item.date}</span> — {item.title}: {item.body}
-                  </li>
-                ))}
-              </ul>
-            </details>
           ) : null}
+          {archive.length > 0 ? (
+            <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {archive.map((item) => (
+                <li key={item.id} className="rounded-lg border border-barn-border bg-barn-white p-5">
+                  <p className="text-xs font-bold tracking-wide text-barn-muted uppercase">{item.date}</p>
+                  <h3 className="mt-2 font-display text-lg font-bold text-charcoal">{item.title}</h3>
+                  <p className="mt-2 text-sm text-barn-muted">{item.body}</p>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <p className="mt-6 text-sm text-barn-muted">
+            The official game calendar is on the{" "}
+            <Link href="/schedule" className="font-semibold text-mobs-green hover:underline">
+              schedule page
+            </Link>
+            .
+          </p>
         </div>
       </section>
 

@@ -10,4 +10,9 @@ export const monroviaExternal = {
   facebook: "https://www.facebook.com/MonroviaBaseballSoftball",
   westCentralBaseball: "http://www.leaguelineup.com/welcome.asp?url=wcybaseball",
   umpireSignals: "http://www.umpirebible.com/index.php/2-rules/53-umpire-signs-signals",
+  googleCalendarHelp: "https://support.google.com/calendar/answer/37100?hl=en",
+  iCalendarHelp: "https://support.apple.com/en-us/HT202361",
+  outlookCalendarHelp:
+    "http://office.microsoft.com/en-us/outlook-help/view-and-subscribe-to-internet-calendars-HA010167325.aspx",
+  outlookComCalendarHelp: "http://windows.microsoft.com/en-us/windows/outlook/calendar-import-vs-subscribe",
 } as const;
