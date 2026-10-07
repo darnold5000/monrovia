@@ -110,27 +110,55 @@ export const teamDivisions: TeamDivision[] = [
   },
 ];
 
-export type Sponsor = { name: string; href: string | null };
+export type Sponsor = { name: string; href: string | null; logo?: string | null };
 
 export const sponsors: Sponsor[] = [
-  { name: "Temple Rents", href: "https://www.templerents.com/" },
-  { name: "I-70 Wrecker", href: "http://www.i70wrecker.com" },
-  { name: "Subway", href: "http://order.subway.com" },
-  { name: "Sherri Walstrom — Carpenter Realtors", href: "http://SherriWalstrom.callcarpenter.com" },
-  { name: "Skyline Roofing", href: "https://www.skylineroofing.net/" },
-  { name: "Ted Everett", href: "https://www.tedeverett.com/" },
-  { name: "Johnson Melloh", href: "https://johnsonmelloh.com/" },
-  { name: "Skin Tonics Spa & Wax", href: "https://skintonics-spawax.square.site/" },
-  { name: "Greg Hubler Chevrolet", href: "http://www.greghublerchevy.com/" },
-  { name: "Big O Tires", href: "https://www.bigotires.com" },
-  { name: "Community Cars Ford", href: "https://www.communitycars.com/ford/home?utm_source=googlemybusiness&utm_medium=organic" },
-  { name: "McClain Matthews Insurance", href: "https://www.mcclainmatthewsinsurance.com/" },
-  { name: "JDS Builds", href: "https://www.jdsbuilds.com/" },
-  { name: "Edward Jones", href: "https://www.edwardjones.com/us-en" },
-  { name: "Summers Plumbing Heating & Cooling", href: "https://www.summersphc.com/" },
-  { name: "Naylor's Auto", href: "https://www.naylorsauto.com/" },
-  { name: "Forest Commodities", href: "https://forestcommodities.com/" },
-  { name: "Nucor", href: null },
+  { name: "Temple Rents", href: "https://www.templerents.com/", logo: "/images/sponsors/temple-rents.png" },
+  { name: "I-70 Wrecker", href: "http://www.i70wrecker.com", logo: "/images/sponsors/i70-wrecker.png" },
+  { name: "Subway", href: "http://order.subway.com", logo: "/images/sponsors/subway.png" },
+  {
+    name: "Sherri Walstrom — Carpenter Realtors",
+    href: "http://SherriWalstrom.callcarpenter.com",
+    logo: "/images/sponsors/sherri-walstrom.png",
+  },
+  { name: "Skyline Roofing", href: "https://www.skylineroofing.net/", logo: "/images/sponsors/skyline-roofing.png" },
+  { name: "Ted Everett", href: "https://www.tedeverett.com/", logo: "/images/sponsors/ted-everett.png" },
+  { name: "Johnson Melloh", href: "https://johnsonmelloh.com/", logo: "/images/sponsors/johnson-melloh.png" },
+  {
+    name: "Skin Tonics Spa & Wax",
+    href: "https://skintonics-spawax.square.site/",
+    logo: "/images/sponsors/skin-tonics.png",
+  },
+  {
+    name: "Greg Hubler Chevrolet",
+    href: "http://www.greghublerchevy.com/",
+    logo: "/images/sponsors/greghubler-chevy.png",
+  },
+  { name: "Big O Tires", href: "https://www.bigotires.com", logo: "/images/sponsors/big-o-tires.png" },
+  {
+    name: "Community Cars Ford",
+    href: "https://www.communitycars.com/ford/home?utm_source=googlemybusiness&utm_medium=organic",
+    logo: "/images/sponsors/community-cars.png",
+  },
+  {
+    name: "McClain Matthews Insurance",
+    href: "https://www.mcclainmatthewsinsurance.com/",
+    logo: "/images/sponsors/mcclain-matthews.png",
+  },
+  { name: "JDS Builds", href: "https://www.jdsbuilds.com/", logo: "/images/sponsors/jds-builds.png" },
+  { name: "Edward Jones", href: "https://www.edwardjones.com/us-en", logo: "/images/sponsors/edward-jones.png" },
+  {
+    name: "Summers Plumbing Heating & Cooling",
+    href: "https://www.summersphc.com/",
+    logo: "/images/sponsors/summers-phc.png",
+  },
+  { name: "Naylor's Auto", href: "https://www.naylorsauto.com/", logo: "/images/sponsors/naylors-auto.png" },
+  {
+    name: "Forest Commodities",
+    href: "https://forestcommodities.com/",
+    logo: "/images/sponsors/forest-commodities.png",
+  },
+  { name: "Nucor", href: null, logo: null },
 ];
 
 export const programsEmptyMessage =

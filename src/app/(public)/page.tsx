@@ -14,6 +14,7 @@ import {
 } from "@/content/monrovia-data";
 import { monroviaExternal } from "@/lib/monrovia-urls";
 import { ExternalLinkButton } from "@/components/public/external-link-button";
+import { SponsorCard } from "@/components/public/sponsor-card";
 
 export default function HomePage() {
   const activeTryouts = upcomingTryouts();
@@ -301,20 +302,7 @@ export default function HomePage() {
           <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
             {sponsors.slice(0, 12).map((s) => (
               <li key={s.name}>
-                {s.href ? (
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="focus-ring flex min-h-[4.5rem] items-center justify-center rounded-md border border-barn-border bg-barn-white px-3 py-4 text-center text-xs font-semibold text-charcoal hover:border-mobs-green/40"
-                  >
-                    {s.name}
-                  </a>
-                ) : (
-                  <span className="flex min-h-[4.5rem] items-center justify-center rounded-md border border-barn-border bg-barn-white px-3 py-4 text-center text-xs font-semibold text-charcoal">
-                    {s.name}
-                  </span>
-                )}
+                <SponsorCard sponsor={s} showName={false} />
               </li>
             ))}
           </ul>

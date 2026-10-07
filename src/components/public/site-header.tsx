@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { navigation, cta } from "@/content/navigation";
@@ -12,9 +12,34 @@ import { SiteBrandMark } from "@/components/shared/site-brand-mark";
 export function SiteHeader() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
+  const [desktopDropdown, setDesktopDropdown] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setMobileOpen(false);
+    setMobileAboutOpen(false);
+    setDesktopDropdown(null);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!desktopDropdown) return;
+    const onPointerDown = (event: MouseEvent) => {
+      if (dropdownRef.current?.contains(event.target as Node)) return;
+      setDesktopDropdown(null);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    return () => document.removeEventListener("mousedown", onPointerDown);
+  }, [desktopDropdown]);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+
+  const closeMenus = () => {
+    setMobileOpen(false);
+    setMobileAboutOpen(false);
+    setDesktopDropdown(null);
+  };
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-charcoal/95 backdrop-blur-md">
@@ -25,31 +50,47 @@ export function SiteHeader() {
           {navigation.map((link) => {
             if ("children" in link && link.children) {
               const active = link.children.some((c) => isActive(c.href)) || isActive(link.href);
+              const open = desktopDropdown === link.href;
               return (
-                <div key={link.href} className="group relative">
-                  <Link
-                    href={link.href}
-                    className={cn(
-                      "focus-ring inline-flex items-center gap-1 rounded-sm px-2 py-2 text-sm font-semibold",
-                      active ? "text-softball-yellow" : "text-barn-cream/90 hover:text-softball-yellow",
-                    )}
-                  >
-                    {link.label}
-                    <ChevronDown className="size-3.5 opacity-70" aria-hidden />
-                  </Link>
-                  <div className="invisible absolute left-0 top-full z-50 min-w-[11rem] pt-1 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                    <div className="rounded-sm border border-white/10 bg-charcoal py-1 shadow-xl">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="block px-4 py-2.5 text-sm text-barn-cream/90 hover:bg-white/5 hover:text-softball-yellow"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
+                <div key={link.href} className="relative" ref={open ? dropdownRef : undefined}>
+                  <div className="flex items-center">
+                    <Link
+                      href={link.href}
+                      onClick={() => setDesktopDropdown(null)}
+                      className={cn(
+                        "focus-ring rounded-sm px-2 py-2 text-sm font-semibold",
+                        active ? "text-softball-yellow" : "text-barn-cream/90 hover:text-softball-yellow",
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                    <button
+                      type="button"
+                      aria-expanded={open}
+                      aria-haspopup="true"
+                      aria-label={`${link.label} menu`}
+                      className="focus-ring rounded-sm p-1.5 text-barn-cream/90 hover:text-softball-yellow"
+                      onClick={() => setDesktopDropdown((current) => (current === link.href ? null : link.href))}
+                    >
+                      <ChevronDown className={cn("size-3.5 transition", open && "rotate-180")} aria-hidden />
+                    </button>
                   </div>
+                  {open ? (
+                    <div className="absolute left-0 top-full z-50 min-w-[11rem] pt-1">
+                      <div className="rounded-sm border border-white/10 bg-charcoal py-1 shadow-xl">
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            onClick={() => setDesktopDropdown(null)}
+                            className="block px-4 py-2.5 text-sm text-barn-cream/90 hover:bg-white/5 hover:text-softball-yellow"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               );
             }
@@ -108,35 +149,53 @@ export function SiteHeader() {
         )}
       >
         <nav className="mx-auto flex max-w-[96rem] flex-col gap-1 px-4 py-4" aria-label="Mobile">
-          {navigation.flatMap((link) =>
-            "children" in link && link.children
-              ? link.children.map((child) => (
-                  <Link
-                    key={child.href}
-                    href={child.href}
-                    className="focus-ring rounded-sm px-3 py-3 text-base font-semibold text-barn-cream hover:text-softball-yellow"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {child.label}
-                  </Link>
-                ))
-              : [
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="focus-ring rounded-sm px-3 py-3 text-base font-semibold text-barn-cream hover:text-softball-yellow"
-                    onClick={() => setMobileOpen(false)}
+          {navigation.map((link) => {
+            if ("children" in link && link.children) {
+              return (
+                <div key={link.href} className="flex flex-col">
+                  <button
+                    type="button"
+                    className="focus-ring flex items-center justify-between rounded-sm px-3 py-3 text-base font-semibold text-barn-cream"
+                    aria-expanded={mobileAboutOpen}
+                    onClick={() => setMobileAboutOpen((v) => !v)}
                   >
                     {link.label}
-                  </Link>,
-                ],
-          )}
+                    <ChevronDown className={cn("size-4 transition", mobileAboutOpen && "rotate-180")} aria-hidden />
+                  </button>
+                  {mobileAboutOpen ? (
+                    <div className="mb-2 flex flex-col border-l border-white/15 pl-3">
+                      {link.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className="focus-ring rounded-sm px-3 py-2.5 text-base text-barn-cream/90 hover:text-softball-yellow"
+                          onClick={closeMenus}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              );
+            }
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="focus-ring rounded-sm px-3 py-3 text-base font-semibold text-barn-cream hover:text-softball-yellow"
+                onClick={closeMenus}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
           <Link
             href={monroviaExternal.login}
             target="_blank"
             rel="noopener noreferrer"
             className="focus-ring mt-2 rounded-sm px-3 py-3 text-center text-base font-semibold text-barn-cream/80"
-            onClick={() => setMobileOpen(false)}
+            onClick={closeMenus}
           >
             Login
           </Link>
@@ -145,7 +204,7 @@ export function SiteHeader() {
             target="_blank"
             rel="noopener noreferrer"
             className="focus-ring mt-1 inline-flex min-h-12 items-center justify-center rounded-sm bg-softball-yellow px-4 py-3 text-center text-base font-bold text-charcoal uppercase"
-            onClick={() => setMobileOpen(false)}
+            onClick={closeMenus}
           >
             Register
           </Link>
