@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     path: "/",
   }),
   metadataBase: new URL(site.url),
+  robots: { index: false, follow: false },
   icons: {
     icon: media.brand.favicon,
     apple: media.brand.favicon,

@@ -10,7 +10,8 @@ export const site = {
   description:
     "Monrovia Organized Baseball & Softball (MOBS) — youth baseball and softball in Monrovia, Indiana. Register for programs, find teams, and stay connected with league news and events.",
   url: getSiteUrl(),
-  allowIndexing: process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true",
+  /** Flip to true (or wire env) when MOBS should appear in search. */
+  allowIndexing: false,
   phone: "",
   phoneHref: "",
   smsHref: "",
